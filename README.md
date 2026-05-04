@@ -1,6 +1,8 @@
-# CS4530 Template Project
+# Sourdough
 
-This is a template project for CS4530, Software Engineering at Northeastern.
+This template project is part of Sourdough, a set of JavaScript templates that
+were originally developed at Northeastern for their Software Engineering class
+in spring of 2026.
 
 ## Base configuration
 
@@ -62,8 +64,9 @@ This base project has an opinionated ESLint configuration that relies on
 [typed linting](https://typescript-eslint.io/getting-started/typed-linting).
 The ESLint configuration makes some assumptions about project structure:
 
-- Frontend code is code that lives in `./frontend` or `./client`, and uses
-  React and JSX. This code is subject to different linter rules.
+- Frontend code is code that lives in `./frontend` or `./client`, and
+  optionally uses React and JSX. This code is subject to different linter
+  rules.
 - Test code lives in a `**/tests` directory OR has a `*.spec.ts(x)` or a
   `*.test.ts(x)` filename. Tests can use devDependencies, unlike other code.
 - Config files all have `*.config.mjs` filenames (vite, vitest, playwright,
@@ -89,9 +92,13 @@ The ESLint configuration makes some assumptions about project structure:
 
 TypeScript is configured with options that support
 [type stripping](https://nodejs.org/api/typescript.html#type-stripping).
-Beyond this, the TypeScript configuration enables `noFallthroughCasesInSwitch`
-and `noImplicitReturns`, which are linter-like properties that don't seem to
-well-supported by typed linting in ESLint.
+Beyond this, the TypeScript configuration enables
+`noFallthroughCasesInSwitch`, `noImplicitOverride`, `noImplicitReturns`, and
+`noUncheckedIndexAccess`, which are linter-like properties that don't seem to
+be well-supported by typed linting in ESLint.
+
+[Matt Pocock's cheat sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)
+is a reasonable source for more on minimal typescript configuration.
 
 ### Prettier
 
@@ -108,33 +115,18 @@ Windows-style `\r\n` line endings (LF instead of CRLF).
 
 ## Project Tree
 
-This project is part of a tree of template projects:
+Different repositories live in different branches:
 
 ```
 Base configuration:
-https://github.com/neu-se/spring-26-base
-| |
-| |-> Traffic light (activity for code design principles lecture):
-|     https://github.com/neu-se/spring-26-traffic-light-activity
+`base`
 |
 v add an Express server and API tests
-https://github.com/neu-se/spring-26-express
-| |
-| |-> Clock server (support code for react lectures):
-|     https://github.com/neu-se/spring-26-websocket-clock
+`express`
 |
 v add a Vite frontend (+ Playwright tests) for a simple client/server setup
-https://github.com/neu-se/spring-26-vite
+`fullstack`
 |
 v add React to the frontend
-https://github.com/neu-se/spring-26-fullstack
-| |
-| |-> Remove backend for a React frontend-only project
-|     https://github.com/neu-se/spring-26-react
-|
-v use NPM workspaces to facilitate sharing of validators between client/server
-https://github.com/neu-se/spring-26-workspaces
-|
-v Project starter code (private)
-https://github.com/neu-se/spring-26-gamenite
+`fullstack-react`
 ```

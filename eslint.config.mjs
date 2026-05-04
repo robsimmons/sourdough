@@ -75,11 +75,12 @@ export default defineConfig([
           format: ["PascalCase"],
         },
         {
-          // Global constants are UPPER_CASE: `PORT`, `THREAD_API_URL`
+          // Usually we want to stick with camelCase for global variables, and
+          // UPPER_CASE for global constants, but there are many exceptions
           selector: "variable",
           modifiers: ["global", "const"],
           types: ["boolean", "number", "string", "array"],
-          format: ["UPPER_CASE"],
+          format: ["UPPER_CASE", "PascalCase", "camelCase"],
         },
         {
           // Private methods and fields must have a leading underscore: this._count
@@ -95,10 +96,8 @@ export default defineConfig([
           format: null,
         },
         {
-          // Usually we want to stick with camelCase for global variables, but
-          // some global items want to be PascalCase: `FooModel` in the server,
-          // `AuthContext` and `ThreadPage` in the frontend, `MockGameServer`
-          // in certain tests.
+          // Usually we want to stick with camelCase for global variables, and
+          // UPPER_CASE for global constants, but there are many exceptions
           selector: ["function", "variable"],
           modifiers: ["global"],
           format: ["camelCase", "PascalCase"],
@@ -111,13 +110,14 @@ export default defineConfig([
       "@typescript-eslint/no-misused-promises": [
         "error",
         {
+          // these exceptions reduce unnecessary friction with React stuff
           checksVoidReturn: {
             arguments: false,
             attributes: false,
           },
         },
       ],
-      "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/restrict-template-expressions": "off", // always allow `${x}` regardless of x's type
       "@typescript-eslint/no-unsafe-member-access": ["error", { allowOptionalChaining: true }],
     },
   },

@@ -53,8 +53,8 @@ export class TranscriptDB {
    * @throws if the there is no transcript with the given student ID
    */
   getTranscript(id: StudentID): Transcript {
-    const index = this._getIndexForId(id);
-    return this._transcripts[index];
+    const index = this._getIndexForId(id); // will throw unless _transcripts[index] exists
+    return this._transcripts[index]!;
   }
 
   /**
@@ -66,7 +66,7 @@ export class TranscriptDB {
    * @throws if the there is no transcript with the given student ID
    */
   addGrade(id: StudentID, courseName: Course, courseGrade: number): void {
-    const index = this._getIndexForId(id);
-    this._transcripts[index].grades.push({ course: courseName, grade: courseGrade });
+    const index = this._getIndexForId(id); // will throw unless _transcripts[index] exists
+    this._transcripts[index]!.grades.push({ course: courseName, grade: courseGrade });
   }
 }
