@@ -4,7 +4,7 @@ This template project is part of Sourdough, a set of JavaScript templates that
 were originally developed at Northeastern for their Software Engineering class
 in spring of 2026.
 
-## Vite+Express Full-stack Application
+## Vite+Express Full-stack React Application
 
 This project has two parts:
 
