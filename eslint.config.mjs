@@ -22,9 +22,9 @@ export default defineConfig([
       eslintPluginImport.flatConfigs.typescript,
     ],
     languageOptions: {
-      // obscure fix for a failure to import of "eslint-plugin-react-refresh"
-      // if this file passes the linter without this `languageOptions` in the
-      // future, try removing it
+      // Obscure fix for a failure to import "eslint-plugin-react-refresh".
+      // If this file passes the linter without this `languageOptions` in the
+      // future, try removing this `languageOptions` section.
       sourceType: "module",
     },
     settings: {
