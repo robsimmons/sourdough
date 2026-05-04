@@ -171,18 +171,33 @@ Windows-style `\r\n` line endings (LF instead of CRLF).
 
 ## Project Tree
 
-Different repositories live in different branches:
+Different base projects live in a sequence of branches.
 
-```
-Base configuration:
-`base`
-|
-v add an Express server and API tests
-`express`
-|
-v add a Vite frontend (+ Playwright tests) for a simple client/server setup
-`fullstack`
-|
-v add React to the frontend
-`fullstack-react`
+- [`base`](https://github.com/robsimmons/sourdough/tree/base), the base
+  configuration
+- [`express`](https://github.com/robsimmons/sourdough/tree/express), adds an
+  Express server and API tests
+- [`fullstack`](https://github.com/robsimmons/sourdough/tree/fullstack), adds
+  a Vite frontend (+ Playwright end-to-end tests) for a simple client/server
+  setup
+- [`fullstack-react`](https://github.com/robsimmons/sourdough/tree/fullstack-react),
+  makes the Vite frontend use React
+
+## Using Sourdough as a Starter
+
+The `main` and `fullstack-react` branches should coincide, so you can use
+GitHub to fork the full-stack React project by just forking this repository.
+
+For other branches, or if you don't want to deal with the weirdness of being a
+forked GitHub project, you'll want to follow a pattern like this, replacing
+the three things in square brackets as needed:
+
+```sh
+git init
+git branch -M main
+git remote add upstream git@github.com:robsimmons/sourdough.git
+git remote add upstream git@github.com:[MY_USERNAME]/[MY_PROJECT].git
+git fetch upstream
+git merge upstream/[THE_STARTER_YOU_WISH_TO_FORK]
+git push -u origin main
 ```
