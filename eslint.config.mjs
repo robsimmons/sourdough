@@ -13,7 +13,6 @@ export default defineConfig([
     "**/.stryker-tmp/", // stryker mutation reports
     "**/coverage", // istanbul coverage reports
     "**/playwright-report/", // playwright test reports
-    "eslint.config.mjs", // eslint-plugin-import has trouble with this config file
   ]),
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
@@ -22,6 +21,12 @@ export default defineConfig([
       eslintPluginImport.flatConfigs.recommended,
       eslintPluginImport.flatConfigs.typescript,
     ],
+    languageOptions: {
+      // Obscure fix for a failure to import "eslint-plugin-react-refresh".
+      // If this file passes the linter without this `languageOptions` in the
+      // future, try removing this `languageOptions` section.
+      ecmaVersion: "latest",
+    },
     settings: {
       "import/resolver": { typescript: true },
     },
@@ -51,6 +56,10 @@ export default defineConfig([
       "no-throw-literal": "error",
       "no-unused-vars": ["error", { args: "none", caughtErrors: "none" }],
     },
+  },
+  {
+    files: ["**/*.config.mjs"],
+    languageOptions: { globals: { process: "readonly" } }, // config files are Node and can read the `process` global
   },
   {
     files: ["**/*.{ts,tsx}"],
@@ -133,7 +142,7 @@ export default defineConfig([
   {
     // Test files may need to make use of the `any` type in a way we want to
     // prevent in normal code.
-    files: ["**/*.{spec,test}.{ts,tsx}", "**/tests"],
+    files: ["**/*.{spec,test}.{ts,tsx}", "**/tests/**"],
     rules: {
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",

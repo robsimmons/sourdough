@@ -8,7 +8,7 @@ export const app = express();
 app.use(express.json());
 const db = new TranscriptDB();
 
-/* Handle API requests to create a new student record. */
+/* Handle API requests to create a new student record */
 const zAddStudentBody = z.object({
   password: z.string(),
   studentName: z.string(),
@@ -39,18 +39,18 @@ app.post("/api/addGrade", (req, res) => {
   } else if (!checkPassword(body.data.password)) {
     res.status(403).send({ error: "Invalid credentials" });
   } else {
-    let response: { success: boolean };
+    let response: { success: true } | { success: false };
     try {
       db.addGrade(body.data.studentID, body.data.courseName, body.data.courseGrade);
       response = { success: true };
-    } catch (err) {
+    } catch {
       response = { success: false };
     }
     res.send(response);
   }
 });
 
-/* Handle API requests to retrieve a student transcript */
+/* Handles API requests to retrieve a student transcript */
 const zGetTranscriptBody = z.object({
   password: z.string(),
   studentID: z.int().gte(0),

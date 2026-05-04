@@ -45,7 +45,7 @@ describe(`POST /api/addGrade`, () => {
     expect(response.body).toStrictEqual({ success: true });
   });
 
-  it("should reject the addition of a new grade for a nonexistant student ids", async () => {
+  it("should reject the addition of a new grade for a nonexistent student id", async () => {
     response = await supertest(app).post(`/api/addGrade`).send({
       password: "password",
       studentID: BAD_STUDENT_ID,

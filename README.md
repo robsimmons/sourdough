@@ -175,7 +175,8 @@ Windows-style `\r\n` line endings (LF instead of CRLF).
 
 ## Project Tree
 
-Different base projects live in a sequence of branches.
+The various Sourdough starters live in a single git repository as a series of
+Git branches that build off of one another.
 
 - [`base`](https://github.com/robsimmons/sourdough/tree/base), the base
   configuration
@@ -194,13 +195,13 @@ GitHub to fork the full-stack React project by just forking this repository.
 
 For other branches, or if you don't want to deal with the weirdness of being a
 forked GitHub project, you'll want to follow a pattern like this, replacing
-the three things in square brackets as needed:
+the three bits in square brackets as needed:
 
 ```sh
 git init
 git branch -M main
 git remote add upstream git@github.com:robsimmons/sourdough.git
-git remote add upstream git@github.com:[MY_USERNAME]/[MY_PROJECT].git
+git remote add origin git@github.com:[MY_USERNAME]/[MY_PROJECT].git
 git fetch upstream
 git merge upstream/[THE_STARTER_YOU_WISH_TO_FORK]
 git push -u origin main
