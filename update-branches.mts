@@ -5,6 +5,7 @@ const UPDATE_CHAIN: [string, string][] = [
   ["base", "express"],
   ["express", "fullstack"],
   ["fullstack", "fullstack-react"],
+  ["fullstack-react", "workspaces"],
   ["fullstack-react", "main"],
 ];
 
@@ -73,7 +74,9 @@ function mergeIntoCurrent(from: string, into: string) {
       die("Something unexpected has happened with package-lock regeneration.");
     }
   } else {
-    console.log("** Nothing's changed after regenerating package-lock.json, continue")
+    console.log(
+      "** Nothing's changed after regenerating package-lock.json, continue",
+    );
   }
 }
 
