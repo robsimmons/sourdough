@@ -64,12 +64,12 @@ function mergeIntoCurrent(from: string, into: string) {
   if (!isPorcelain()) {
     console.log("something changed - if it's just package-lock.json changed, we can add")
     execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
-    if (!isPorcelain()) {
-      die("Some non-package-lock.json artifact remains after merge.");
-    }
     execFileSync("git", ["commit", "-m", "Regenerate package-lock.json"], {
       stdio: "inherit",
     });
+    if (!isPorcelain()) {
+      die("Something unexpected has happened with package-lock regeneration.");
+    }
   }
 }
 
