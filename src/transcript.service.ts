@@ -1,4 +1,4 @@
-import { type StudentID, type Student, type Course, type Transcript } from "./types.ts";
+import { type Course, type Student, type StudentID, type Transcript } from "./types.ts";
 
 export class TranscriptDB {
   /**
