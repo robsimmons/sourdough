@@ -6,12 +6,10 @@ export class ServiceError extends Error {}
  * Convert an unknown error (probably a ServiceError) to a meaningful
  * user-facing message
  */
-export const serviceErrorToStr = (err: unknown) =>
-  err instanceof ServiceError
-    ? err.message
-    : err instanceof Error
-      ? `Unexpected error: ${err.message}`
-      : `Unexpected error: ${err}`;
+export function serviceErrorToStr(err: unknown) {
+  if (err instanceof ServiceError) return err.message;
+  return `Unexpected error: ${err instanceof Error ? err.message : String(err)}`;
+}
 
 const zError = z.object({ error: z.string() });
 
@@ -105,7 +103,7 @@ export async function addGrade(
 }
 
 /* Must be in sync with Transcript from src/types.ts */
-const zTranscript = z.object({
+export const zTranscript = z.object({
   student: z.object({ studentID: z.int(), studentName: z.string() }),
   grades: z.array(z.object({ course: z.string(), grade: z.number() })),
 });

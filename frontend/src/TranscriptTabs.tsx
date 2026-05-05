@@ -3,19 +3,14 @@ import AddStudent from "./AddStudent.tsx";
 import AddGrade from "./AddGrade.tsx";
 import LookupTranscript from "./LookupTranscript.tsx";
 
-interface TabInfo {
-  key: string;
-  display: string;
-}
-
-const TRANSCRIPT_TABS: TabInfo[] = [
+const TRANSCRIPT_TABS = [
   { key: "new-student", display: "Add Student" },
   { key: "new-grade", display: "Add Grade" },
   { key: "view", display: "View Transcript" },
-];
+] as const;
 
 export default function TranscriptTabs() {
-  const [currentTab, setCurrentTab] = useState(TRANSCRIPT_TABS[0]!.key);
+  const [currentTab, setCurrentTab] = useState(TRANSCRIPT_TABS[0].key);
 
   return (
     <div style={{ marginTop: "1em" }}>
