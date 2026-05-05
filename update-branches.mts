@@ -82,6 +82,7 @@ function main() {
     die("working tree not clean");
   }
 
+  execFileSync("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
   for (const [last, next] of UPDATE_CHAIN) {
     execFileSync("git", ["checkout", next], { stdio: "inherit" });
     mergeIntoCurrent(last, next);
