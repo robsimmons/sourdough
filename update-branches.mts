@@ -62,6 +62,7 @@ function mergeIntoCurrent(from: string, into: string) {
   rmSync("node_modules", { recursive: true, force: true });
   execFileSync("npm", ["install"], { stdio: "inherit" });
   if (!isPorcelain()) {
+    console.log("something changed - if it's just package-lock.json changed, we can add")
     execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
     if (!isPorcelain()) {
       die("Some non-package-lock.json artifact remains after merge.");
