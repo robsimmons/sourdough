@@ -11,7 +11,7 @@ export default function App() {
       <div>
         <label htmlFor="password">Enter credentials:</label>
         <br />
-        <input id="password" onChange={(ev) => setPassword(ev.target.value)} />
+        <input id="password" type="password" onChange={(ev) => setPassword(ev.target.value)} />
         <PasswordContext.Provider value={password}>
           <TranscriptTabs />
         </PasswordContext.Provider>
