@@ -2,6 +2,17 @@ import { z } from "zod";
 
 export class ServiceError extends Error {}
 
+/**
+ * Convert an unknown error (probably a ServiceError) to a meaningful
+ * user-facing message
+ */
+export const serviceErrorToStr = (err: unknown) =>
+  err instanceof ServiceError
+    ? err.message
+    : err instanceof Error
+      ? `Unexpected error: ${err.message}`
+      : `Unexpected error: ${err}`;
+
 const zError = z.object({ error: z.string() });
 
 const zGrade = z
