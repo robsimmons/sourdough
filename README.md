@@ -114,7 +114,7 @@ support:
   interactive Playwright UI
 - `npm run dev` starts a development server or watch process
 - `npm run build` prepares the project for production-style deployment
-- `npm start` runs the project in production style
+- `npm start` runs the project in production mode
 
 These are tested by github actions in `.github/workflows/main.yml`.
 
