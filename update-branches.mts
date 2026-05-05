@@ -63,7 +63,7 @@ function mergeIntoCurrent(from: string, into: string) {
   execFileSync("npm", ["install"], { stdio: "inherit" });
   if (!isPorcelain()) {
     console.log(
-      "something changed - if it's just package-lock.json changed, we can add",
+      "** Something changed - if it's just package-lock.json changed, we can add",
     );
     execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
     execFileSync("git", ["commit", "-m", "Regenerate package-lock.json"], {
@@ -72,6 +72,8 @@ function mergeIntoCurrent(from: string, into: string) {
     if (!isPorcelain()) {
       die("Something unexpected has happened with package-lock regeneration.");
     }
+  } else {
+    console.log("** Nothing's changed after regenerating package-lock.json, continue")
   }
 }
 
