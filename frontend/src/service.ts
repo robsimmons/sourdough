@@ -14,7 +14,7 @@ const zStudentID = z
   .string()
   .regex(z.regexes.integer)
   .transform((str) => Number.parseInt(str, 10))
-  .pipe(z.int().gte(0));
+  .pipe(z.int().gt(0));
 
 const zAddStudentResponse = z.object({ studentID: z.int() });
 /**
@@ -53,7 +53,7 @@ const zAddGradeResponse = z.discriminatedUnion("success", [
  *
  * @param password - credentials
  * @param studentIDStr - student ID (error if not a positive integer)
- * @param courseName - student name
+ * @param courseName - course name (can be any non-empty string)
  * @param courseGradeStr - course grade (error if not a number between 0 and 100, inclusive)
  * @returns successful API response
  * @throws if validation fails or there is an API response error
@@ -90,7 +90,8 @@ export async function addGrade(
   });
   const data = z.union([zError, zAddGradeResponse]).parse(await response.json());
   if ("error" in data) throw new ServiceError(data.error);
-  if (!data.success) throw new ServiceError(`Could not add grade for student with id ${studentIDStr}`);
+  if (!data.success)
+    throw new ServiceError(`Failed to add grade for this student`);
 }
 
 /* Must be in sync with Transcript from src/types.ts */
@@ -99,7 +100,7 @@ const zTranscript = z.object({
   grades: z.array(z.object({ course: z.string(), grade: z.number() })),
 });
 
-const zGetTranscriptResponse = z.union([
+const zGetTranscriptResponse = z.discriminatedUnion("success", [
   z.object({ success: z.literal(false) }),
   z.object({
     success: z.literal(true),

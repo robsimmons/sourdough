@@ -39,8 +39,8 @@ frontend web development.
 
 However, this means your "frontend code" — the HTML and JS that the browser is
 supposed to run being served by the Vite development web server — is coming
-from a different server than the Express server running in React. The default
-convention is that Vite development web server is accessed via
+from a different server than the Express server that's handling API requests.
+The default convention is that Vite development web server is accessed via
 <http://localhost:5173>, and the Express API server is accessible via
 <http://localhost:3000>. If you try to have a website that is being served
 from a different website than the API service it is using, you're going to
@@ -130,9 +130,8 @@ The ESLint configuration makes some assumptions about project structure:
 - Test code lives in a `**/tests` directory OR has a `*.spec.ts(x)` or a
   `*.test.ts(x)` filename. Tests can use devDependencies, unlike other code.
 - Config files all have `*.config.mjs` filenames (vite, vitest, playwright,
-  and eslint all can follow this convention). These can also import
-  devDependencies, unlike other code. This means we're not using TypeScript to
-  check our config files.
+  and eslint all can follow this convention). This means we're not using
+  TypeScript to check our config files.
 - Most everything should be registered as `error`. Warnings don't fail CI
   checks. Exceptions should have a documented reason. Notable exceptions:
   - `no-console` is `warn` because no-console regularly gets turned off by
