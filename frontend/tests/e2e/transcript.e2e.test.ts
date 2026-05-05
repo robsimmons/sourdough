@@ -11,7 +11,7 @@ test.describe("The add student functionality", () => {
     await page.getByLabel("Enter new student's name:").focus();
     await page.keyboard.type("Hank");
     await page.keyboard.press("Enter");
-    await expect(page.getByText("Error: Invalid credentials")).toHaveCount(1);
+    await expect(page.getByText("Invalid credentials")).toHaveCount(1);
   });
 
   test("should require valid auth", async ({ page }) => {
@@ -20,7 +20,7 @@ test.describe("The add student functionality", () => {
     await page.getByLabel("Enter new student's name:").focus();
     await page.keyboard.type("Hank");
     await page.keyboard.press("Enter");
-    await expect(page.getByText("Error: Invalid credentials")).toHaveCount(1);
+    await expect(page.getByText("Invalid credentials")).toHaveCount(1);
   });
 
   test("should work with valid auth", async ({ page }) => {

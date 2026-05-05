@@ -1,5 +1,8 @@
-import { addGrade, addStudent, getTranscript } from "./service.ts";
+import { addGrade, addStudent, getTranscript, ServiceError } from "./service.ts";
 import "./style.css";
+
+const serviceErrorToStr = (err: unknown) =>
+  err instanceof ServiceError ? err.message : String(err);
 
 const showNewStudentDiv = document.querySelector<HTMLDivElement>("#showNewStudent")!;
 document.querySelector<HTMLFormElement>("#addStudent")!.onsubmit = (ev) => {
@@ -11,7 +14,7 @@ document.querySelector<HTMLFormElement>("#addStudent")!.onsubmit = (ev) => {
       showNewStudentDiv.innerText = `Record created for student '${studentName}' with ID ${studentID}`;
     })
     .catch((err: unknown) => {
-      showNewStudentDiv.innerText = `${err}`;
+      showNewStudentDiv.innerText = serviceErrorToStr(err);
     });
 };
 
@@ -27,7 +30,7 @@ document.querySelector<HTMLFormElement>("#addGrade")!.onsubmit = (ev) => {
       showAddGradeDiv.innerText = `Added grade of ${courseGrade} in ${courseName} successfully!`;
     })
     .catch((err: unknown) => {
-      showAddGradeDiv.innerText = `${err}`;
+      showAddGradeDiv.innerText = serviceErrorToStr(err);
     });
 };
 
@@ -52,5 +55,5 @@ document.querySelector<HTMLFormElement>("#viewTranscript")!.onsubmit = (ev) => {
         }
       }
     })
-    .catch((err: unknown) => (showGetTranscriptDiv.innerText = `${err}`));
+    .catch((err: unknown) => (showGetTranscriptDiv.innerText = serviceErrorToStr(err)));
 };
