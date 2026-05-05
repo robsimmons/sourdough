@@ -10,13 +10,12 @@
     "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
     "test": "playwright test",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc && vite build",
     "playwright": "playwright test --ui"
   },
   "author": "Rob Simmons",
   "dependencies": {
     "@sourdough/shared": "^1.0.0",
-    "express": "^5.2.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "zod": "^4.3.6"

@@ -2,7 +2,11 @@ import express from "express";
 import { z } from "zod";
 import { checkPassword } from "./auth.service.ts";
 import { TranscriptDB } from "./transcript.service.ts";
-import type { Transcript } from "@sourdough/shared";
+import type {
+  AddGradeResponse,
+  AddStudentResponse,
+  GetTranscriptResponse,
+} from "@sourdough/shared";
 
 export const app = express();
 app.use(express.json());
@@ -20,8 +24,10 @@ app.post("/api/addStudent", (req, res) => {
   } else if (!checkPassword(body.data.password)) {
     res.status(403).send({ error: "Invalid credentials" });
   } else {
-    const id = db.addStudent(body.data.studentName);
-    res.send({ studentID: id });
+    const response: AddStudentResponse = {
+      studentID: db.addStudent(body.data.studentName),
+    };
+    res.send(response);
   }
 });
 
@@ -39,7 +45,7 @@ app.post("/api/addGrade", (req, res) => {
   } else if (!checkPassword(body.data.password)) {
     res.status(403).send({ error: "Invalid credentials" });
   } else {
-    let response: { success: true } | { success: false };
+    let response: AddGradeResponse;
     try {
       db.addGrade(body.data.studentID, body.data.courseName, body.data.courseGrade);
       response = { success: true };
@@ -62,7 +68,7 @@ app.post("/api/getTranscript", (req, res) => {
   } else if (!checkPassword(body.data.password)) {
     res.status(403).send({ error: "Invalid credentials" });
   } else {
-    let response: { success: true; transcript: Transcript } | { success: false };
+    let response: GetTranscriptResponse;
     try {
       const transcript = db.getTranscript(body.data.studentID);
       response = { success: true, transcript };

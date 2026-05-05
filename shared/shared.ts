@@ -41,4 +41,3 @@ export type GetTranscriptResponse = z.infer<typeof zGetTranscriptResponse>;
 
 export type Course = string;
 export type StudentID = number;
-export type StudentName = string;
