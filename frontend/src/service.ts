@@ -90,7 +90,7 @@ export async function addGrade(
   });
   const data = z.union([zError, zAddGradeResponse]).parse(await response.json());
   if ("error" in data) throw new ServiceError(data.error);
-  if (!data.success) throw new ServiceError(`Could not add grade for student with id ${studentID}`);
+  if (!data.success) throw new ServiceError(`Could not add grade for student with id ${studentIDStr}`);
 }
 
 /* Must be in sync with Transcript from src/types.ts */
