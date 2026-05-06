@@ -57,7 +57,9 @@ function mergeIntoCurrent(from: string, into: string) {
     execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
     execFileSync("git", ["commit", "--no-edit"], { stdio: "inherit" });
   }
+}
 
+function regeneratePackageLock() {
   console.log("Regenerating package-lock.json via npm install");
   rmSync("package-lock.json");
   rmSync("node_modules", { recursive: true, force: true });
@@ -86,9 +88,15 @@ function main() {
   }
 
   execFileSync("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
+  regeneratePackageLock();
+  execFileSync("git", ["push", "origin", UPDATE_CHAIN[0][0]], {
+    stdio: "inherit",
+  });
+
   for (const [last, next] of UPDATE_CHAIN) {
     execFileSync("git", ["checkout", next], { stdio: "inherit" });
     mergeIntoCurrent(last, next);
+    regeneratePackageLock();
     execFileSync("git", ["push", "origin", next], { stdio: "inherit" });
   }
 
