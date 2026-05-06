@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("The add student functionality", () => {
   test("should appear", async ({ page }) => {

@@ -1,10 +1,11 @@
-import { defineConfig, globalIgnores } from "eslint/config";
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import { defineConfig, globalIgnores } from "eslint/config";
 import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import reactHooks from "eslint-plugin-react-hooks";
 import { reactRefresh } from "eslint-plugin-react-refresh";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
   globalIgnores([
@@ -30,6 +31,9 @@ export default defineConfig([
     settings: {
       "import/resolver": { typescript: true },
     },
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
     rules: {
       eqeqeq: "error",
       "import/no-amd": "error",
@@ -54,6 +58,7 @@ export default defineConfig([
       "no-param-reassign": "error",
       "no-throw-literal": "error",
       "no-unused-vars": ["error", { args: "none", caughtErrors: "none" }],
+      "simple-import-sort/imports": "warn",
     },
   },
   {

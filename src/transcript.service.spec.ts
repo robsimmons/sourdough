@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
+
 import { TranscriptDB } from "./transcript.service.ts";
 
 let db: TranscriptDB;

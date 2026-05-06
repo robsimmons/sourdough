@@ -1,9 +1,11 @@
 // Run this script to launch the server.
 /* eslint no-console: "off" */
 
-import { app } from "./app.ts";
 import * as path from "node:path";
+
 import express from "express";
+
+import { app } from "./app.ts";
 
 // This if-then-else check for MODE=production helps avoid a common source of
 // pain:

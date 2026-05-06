@@ -1,5 +1,6 @@
-import { beforeAll, describe, expect, it } from "vitest";
 import supertest, { type Response } from "supertest";
+import { beforeAll, describe, expect, it } from "vitest";
+
 import { app } from "./app.ts";
 let response: Response;
 
