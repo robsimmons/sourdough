@@ -6,7 +6,7 @@ const UPDATE_CHAIN: [string, string][] = [
   ["express", "fullstack"],
   ["fullstack", "fullstack-react"],
   ["fullstack-react", "workspaces"],
-  ["fullstack-react", "main"],
+  ["fullstack-react", "main"], // nb: package-lock regeneration could result in these two diverging
 ];
 
 function die(message: string) {
