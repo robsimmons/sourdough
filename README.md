@@ -17,9 +17,10 @@ This project has three parts, which together form an
 
 The shared Zod validation is why the move to workspaces is desirable in the
 first place: it's common practice to keep frontend and backend code separate
-and to define a separate project for shared state that is imported by both
-frontend and backend. Zod validators and shared types are one of the most
-common things that a project might share between the frontend and the backend.
+and to define a separate project that acts as a "single source of truth" for
+the API's types and that is subsequently imported by both frontend and
+backend. Zod validators and shared types are one of the most common things
+that a project might share between the frontend and the backend.
 
 The way this project runs in "production mode" versus "development mode" is
 very different.
