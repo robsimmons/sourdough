@@ -77,9 +77,8 @@ The ESLint configuration makes some assumptions about project structure:
 - Test code lives in a `**/tests` directory OR has a `*.spec.ts(x)` or a
   `*.test.ts(x)` filename. Tests can use devDependencies, unlike other code.
 - Config files all have `*.config.mjs` filenames (vite, vitest, playwright,
-  and eslint all can follow this convention), so we're not using TypeScript to
-  check our config files. Config files can also import devDependencies, like
-  tests but unlike other code.
+  and eslint all can follow this convention). Config files can also import
+  devDependencies, like tests but unlike other code.
 - Most everything should be registered as `error`. Warnings don't fail CI
   checks. Exceptions should have a documented reason. Notable exceptions:
   - `no-console` is `warn` because no-console regularly gets turned off by
@@ -89,6 +88,9 @@ The ESLint configuration makes some assumptions about project structure:
     visual inspection.
   - `prettier` is `warn` because red squigglies for `prettier` are especially
     distracting and we can check for prettier failures in CI separately.
+  - `simple-import-sort` is `warn` — it's a property much like prettier in
+    that it's a mechanical fix and the red squigglies are extremely
+    distracting. It's also no huge loss if this doesn't get flagged in CI.
   - We do not override the default setting of `warn` for
     `react-hooks/exhaustive-deps` in the default configuration. This rule
     makes the (horrible) suggestion to remove the dependency array, and people
