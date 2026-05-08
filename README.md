@@ -73,7 +73,8 @@ The ESLint configuration makes some assumptions about project structure:
   and eslint all can follow this convention). Config files can also import
   devDependencies, like tests but unlike other code.
 - Most everything should be registered as `error`. Warnings don't fail CI
-  checks. Exceptions should have a documented reason. Notable exceptions:
+  checks. Exceptions should have a documented reason. Notable exceptions where
+  we either turn on warnings or leave the warn default in place:
   - `no-console` is `warn` because no-console regularly gets turned off by
     line or file specific rules: we want to discourage excessive `no-console`
     use but it is more like the admonition to not check in commented-out code:
@@ -81,9 +82,10 @@ The ESLint configuration makes some assumptions about project structure:
     visual inspection.
   - `prettier` is `warn` because red squigglies for `prettier` are especially
     distracting and we can check for prettier failures in CI separately.
-  - `simple-import-sort` is `warn` — it's a property much like prettier in
-    that it's a mechanical fix and the red squigglies are extremely
-    distracting. It's also no huge loss if this doesn't get flagged in CI.
+  - `simple-import-sort/imports` is `warn` — it's a property much like
+    prettier in that it's a mechanical fix and the red squigglies are
+    extremely distracting. It's also no huge loss if this doesn't get flagged
+    in CI.
   - We do not override the default setting of `warn` for
     `react-hooks/exhaustive-deps` in the default configuration. This rule
     makes the (horrible) suggestion to remove the dependency array, and people
