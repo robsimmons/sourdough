@@ -40,8 +40,8 @@ Notable exceptions to this principle:
 
 ### NPM Scripts
 
-This sets up a set of commands that CS4530 templates should consistently
-support:
+This sets up a set of commands that projects should consistently support, when
+appropriate:
 
 - `npm run check` runs TypeScript
 - `npm run lint` runs ESLint, and `npm run lint:fix` runs eslint with the
@@ -49,9 +49,6 @@ support:
 - `npm run prettier` checks formatting, and `npm run prettier:fix` writes
   formatted files back to disk
 - `npm run test` runs Vitest tests and reports coverage
-
-When appropriate, projects should also have the following scripts:
-
 - `npm run dev` starts a development server or watch process
 - `npm run build` prepares the project for production-style deployment
 - `npm start` runs the project in production mode
