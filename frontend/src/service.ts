@@ -103,7 +103,7 @@ export async function addGrade(
 }
 
 /**
- * This inferred Transcript type must be identical to the Transcript type from
+ * This inferred Transcript type must be identical to the Transcript type
  * in src/types.ts
  */
 export const zTranscript = z.object({
