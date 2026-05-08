@@ -13,8 +13,8 @@ export class TranscriptDB {
 
   /**
    * Adds a new student to the database
-   * @param {string} newName - the name of the student
-   * @returns {StudentID} - the newly-assigned ID for the new student
+   * @param newName - the name of the student
+   * @returns the newly-assigned ID for the new student
    */
   addStudent(newName: string): StudentID {
     this._lastID += 1;
