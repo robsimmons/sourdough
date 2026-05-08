@@ -80,6 +80,9 @@ function regeneratePackageLock() {
       "** Nothing's changed after regenerating package-lock.json, continue",
     );
   }
+
+  // Run npm outdated just to have non-semvar out of date stuff display in the terminal
+  execFileSync("npm", ["outdated"], { stdio: "inherit" });
 }
 
 function main() {
