@@ -1,13 +1,12 @@
 import {
-  zAddGradeRequest,
-  zAddStudentRequest,
-  zGetTranscriptRequest,
   type AddGradeResponse,
   type AddStudentResponse,
   type GetTranscriptResponse,
+  zAddGradeRequest,
+  zAddStudentRequest,
+  zGetTranscriptRequest,
 } from "@sourdough/shared";
 import express from "express";
-import { z } from "zod";
 
 import { checkPassword } from "./auth.service.ts";
 import { TranscriptDB } from "./transcript.service.ts";
