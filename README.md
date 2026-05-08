@@ -118,9 +118,9 @@ support:
 - `npm run prettier` checks formatting, and `npm run prettier:fix` writes
   formatted files back to disk
 - `npm run test` runs appropriate tests on all projects: vitest without
-  coverage for the backend (it's mostly validators and types anyway), vitest
-  with coverage for the backend, and Playwright end-to-end tests in the
-  frontend project that exercise the frontend and backend together
+  coverage for the shared project (it's mostly validators and types anyway),
+  vitest with coverage for the API server, and Playwright end-to-end tests in
+  the frontend project that exercise the frontend and backend together
 - `npm run playwright` runs the Playwright end-to-end tests with the
   interactive Playwright UI
 - `npm run dev` starts a development server or watch process
