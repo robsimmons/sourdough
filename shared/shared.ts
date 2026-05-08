@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-/** Validator for error responses from the API*/
+/** Validator for error responses from the API */
 export const zError = z.object({ error: z.string() });
 
-/** Validator for non-error POST `/api/addStudent` requests */
+/** Validator for POST `/api/addStudent` requests */
 export const zAddStudentRequest = z.object({
   password: z.string(),
   studentName: z.string(),
@@ -11,7 +11,7 @@ export const zAddStudentRequest = z.object({
 /** Request type for POST `/api/addStudent` */
 export type AddStudentRequest = z.infer<typeof zAddStudentRequest>;
 
-/** Validator for non-error POST `/api/addStudent` responses */
+/** Validator for POST `/api/addStudent` 200 responses */
 export const zAddStudentResponse = z.object({ studentID: z.int() });
 /** Response type for POST `/api/addStudent` */
 export type AddStudentResponse = z.infer<typeof zAddStudentResponse>;
@@ -23,10 +23,10 @@ export const zAddGradeRequest = z.object({
   courseName: z.string(),
   courseGrade: z.number().gte(0).lte(100),
 });
-/** Request type for POST `/api/addStudent` */
+/** Request type for POST `/api/addGrade` */
 export type AddGradeRequest = z.infer<typeof zAddGradeRequest>;
 
-/** Validator for POST `/api/addGrade` responses */
+/** Validator for POST `/api/addGrade` 200 responses */
 export const zAddGradeResponse = z.discriminatedUnion("success", [
   z.object({ success: z.literal(true) }),
   z.object({ success: z.literal(false) }),
@@ -55,7 +55,7 @@ export const zGetTranscriptRequest = z.object({
 /** Request type for POST `/api/getTranscript` */
 export type GetTranscriptRequest = z.infer<typeof zGetTranscriptRequest>;
 
-/** Validator for POST `/api/getTranscript` responses */
+/** Validator for POST `/api/getTranscript` 200 responses */
 export const zGetTranscriptResponse = z.discriminatedUnion("success", [
   z.object({ success: z.literal(false) }),
   z.object({ success: z.literal(true), transcript: zTranscript }),
