@@ -48,8 +48,8 @@ have to gain a nightmarish amount of literacy with
 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS). (A
 different port on `localhost` counts as a different website.) This wasn't a
 problem in production mode: your entire website is coming from the Express
-server. You really want your website look like it's _all_ coming from a single
-server during development too.
+server. You really want your website to look like it's _all_ coming from a
+single server during development too.
 
 The easy way to do this is to have the development server _only_ respond to
 API requests, and have the Vite development server forward all API requests to
