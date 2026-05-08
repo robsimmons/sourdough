@@ -30,6 +30,7 @@ app.post("/api/addStudent", (req, res) => {
   }
 });
 
+/* Handle API requests to add a grade to a student */
 app.post("/api/addGrade", (req, res) => {
   const body = zAddGradeRequest.safeParse(req.body);
   if (!body.success) {
@@ -48,6 +49,7 @@ app.post("/api/addGrade", (req, res) => {
   }
 });
 
+/* Handle API requests to retrieve a student transcript */
 app.post("/api/getTranscript", (req, res) => {
   const body = zGetTranscriptRequest.safeParse(req.body);
   if (!body.success) {
