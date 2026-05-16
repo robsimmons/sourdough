@@ -7,8 +7,8 @@ import express from "express";
 
 import { app } from "./app.ts";
 
-// This if-then-else check for MODE=production helps avoid a common source of
-// pain:
+// This if-then-else check for NODE_ENV=production helps avoid a common source
+// of pain:
 //
 // 1. You build the website (`npm run build`) and test it in production mode
 // 2. You want to update the frontend, so you start the Vite development
@@ -17,7 +17,7 @@ import { app } from "./app.ts";
 //    serving stale files created during the build command in step #1.
 //    You can't get any frontend changes to show up in the browser, no
 //    matter what you do.
-if (process.env.MODE === "production") {
+if (process.env.NODE_ENV === "production") {
   // In production mode, we want to serve the frontend code from Express
   app.use(express.static(path.join(import.meta.dirname, "../frontend/dist")));
   app.get(/(.*)/, (req, res) =>
