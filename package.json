@@ -18,8 +18,8 @@
     "dev:frontend": "vite frontend",
     "dev:server": "node --watch ./src/server.ts",
     "build": "tsc -p frontend/tsconfig.json && vite build frontend",
-    "start": "MODE=production node ./src/server.ts",
-    "playwright": "playwright test --ui"
+    "playwright": "playwright test --ui",
+    "start": "NODE_ENV=production node ./src/server.ts"
   },
   "author": "Rob Simmons",
   "devDependencies": {
