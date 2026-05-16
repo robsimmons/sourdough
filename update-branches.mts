@@ -1,3 +1,5 @@
+// usage: node update-branches.mts
+
 import { execFileSync, spawnSync } from "node:child_process";
 import { rmSync } from "node:fs";
 
