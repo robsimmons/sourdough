@@ -6,6 +6,7 @@
     "module": "nodenext",
     "skipLibCheck": true,
     "noEmit": true,
+    "types": ["node"],
 
     /* Support the use of type stripping in Node */
     "allowImportingTsExtensions": true,
