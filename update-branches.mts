@@ -67,6 +67,8 @@ function regeneratePackageLock() {
   console.log("Regenerating package-lock.json via npm install");
   rmSync("package-lock.json");
   rmSync("node_modules", { recursive: true, force: true });
+
+  // --min-release-age provides some protection against supply chain attacks
   execFileSync("npm", ["install", "--min-release-age=7"], { stdio: "inherit" });
   if (!isPorcelain()) {
     console.log(
