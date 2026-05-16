@@ -15,13 +15,20 @@ function die(message: string) {
 }
 
 function isPorcelain() {
-  return "" == execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim();
+  return (
+    "" ==
+    execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim()
+  );
 }
 
 function exactlyPackageJsonConflicts(): boolean {
-  const conflicts = execFileSync("git", ["diff", "--name-only", "--diff-filter=U"], {
-    encoding: "utf8",
-  })
+  const conflicts = execFileSync(
+    "git",
+    ["diff", "--name-only", "--diff-filter=U"],
+    {
+      encoding: "utf8",
+    },
+  )
     .split("\n")
     .map((s) => s.trim())
     .filter((line) => line !== "");
@@ -31,9 +38,13 @@ function exactlyPackageJsonConflicts(): boolean {
 function mergeIntoCurrent(from: string, into: string) {
   console.log(`\n=== Merging ${from} into ${into} ===`);
 
-  const merge = spawnSync("git", ["merge", from, "-m", `Merge branch ${from} into ${into}`], {
-    stdio: "inherit",
-  });
+  const merge = spawnSync(
+    "git",
+    ["merge", from, "-m", `Merge branch ${from} into ${into}`],
+    {
+      stdio: "inherit",
+    },
+  );
 
   if (merge.status !== 0) {
     // Only acceptable failure is conflicts that are exclusively package-lock.json
@@ -54,9 +65,11 @@ function regeneratePackageLock() {
   console.log("Regenerating package-lock.json via npm install");
   rmSync("package-lock.json");
   rmSync("node_modules", { recursive: true, force: true });
-  execFileSync("npm", ["install"], { stdio: "inherit" });
+  execFileSync("npm", ["install", "--min-release-age=7"], { stdio: "inherit" });
   if (!isPorcelain()) {
-    console.log("** Something changed - if it's just package-lock.json changed, we can add");
+    console.log(
+      "** Something changed - if it's just package-lock.json changed, we can add",
+    );
     execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
     execFileSync("git", ["commit", "-m", "Regenerate package-lock.json"], {
       stdio: "inherit",
@@ -65,7 +78,9 @@ function regeneratePackageLock() {
       die("Something unexpected has happened with package-lock regeneration.");
     }
   } else {
-    console.log("** Nothing's changed after regenerating package-lock.json, continue");
+    console.log(
+      "** Nothing's changed after regenerating package-lock.json, continue",
+    );
   }
 
   execFileSync("npm", ["run", "check"], { stdio: "inherit" });
@@ -74,7 +89,9 @@ function regeneratePackageLock() {
   // Run npm outdated just to have the output go in terminal
   try {
     execFileSync("npm", ["outdated"], { stdio: "inherit" });
-  } catch {/* non-semver out-of-date stuff will lead to an error exit */}
+  } catch {
+    /* non-semver out-of-date stuff will lead to an error exit */
+  }
 }
 
 function main() {
