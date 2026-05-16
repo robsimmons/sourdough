@@ -1,4 +1,4 @@
-// usage: node update-branches.mts
+// usage: node update-branches.ts
 
 import { execFileSync, spawnSync } from "child_process";
 import { rmSync } from "fs";
