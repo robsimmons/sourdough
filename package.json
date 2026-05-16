@@ -12,7 +12,7 @@
     "test": "vitest run --coverage",
     "dev": "node --watch ./src/server.ts",
     "build": "echo 'nothing to do to build, run `npm start`'",
-    "start": "MODE=production node ./src/server.ts"
+    "start": "NODE_ENV=production node ./src/server.ts"
   },
   "author": "Rob Simmons",
   "devDependencies": {
