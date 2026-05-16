@@ -1,7 +1,7 @@
 // usage: node update-branches.mts
 
-import { execFileSync, spawnSync } from "node:child_process";
-import { rmSync } from "node:fs";
+import { execFileSync, spawnSync } from "child_process";
+import { rmSync } from "fs";
 
 const UPDATE_CHAIN: [string, string][] = [
   ["base", "express"],
@@ -96,7 +96,7 @@ function main() {
 
   for (const [last, next] of UPDATE_CHAIN) {
     execFileSync("git", ["checkout", next], { stdio: "inherit" });
-    execFileSync("git", ["pull"], { stdio: "inherit" });
+    execFileSync("git", ["pull", "--ff-only"], { stdio: "inherit" });
     mergeIntoCurrent(last, next);
     regeneratePackageLock();
     execFileSync("git", ["push", "origin", next], { stdio: "inherit" });
