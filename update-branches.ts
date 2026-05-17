@@ -1,7 +1,7 @@
 // usage: node update-branches.ts
 
-import { execFileSync, spawnSync } from "child_process";
-import { rmSync } from "fs";
+import { execFileSync, spawnSync } from "node:child_process";
+import { rmSync } from "node:fs";
 
 const UPDATE_CHAIN: [string, string][] = [
   ["base", "express"],
@@ -17,7 +17,7 @@ function die(message: string) {
 }
 
 function isPorcelain() {
-  return "" == execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim();
+  return "" === execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim();
 }
 
 function exactlyPackageJsonConflicts(): boolean {
