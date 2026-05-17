@@ -88,12 +88,19 @@ function main() {
     die("working tree not clean");
   }
 
-  execFileSync("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
+  // Handle this orphan branch
+  execFileSync("git", ["pull", "--ff-only"], { stdio: "inherit" });
   regeneratePackageLock();
-  execFileSync("git", ["push", "origin", UPDATE_CHAIN[0][0]], {
+  execFileSync("git", ["push", "origin"], { stdio: "inherit" });
+
+  // Handle base Sourdough package
+  execFileSync("git", ["checkout", "base"], { stdio: "inherit" });
+  regeneratePackageLock();
+  execFileSync("git", ["push", "origin", "base"], {
     stdio: "inherit",
   });
 
+  // Handle primary Sourdough branches
   for (const [last, next] of UPDATE_CHAIN) {
     execFileSync("git", ["checkout", next], { stdio: "inherit" });
     execFileSync("git", ["pull", "--ff-only"], { stdio: "inherit" });
