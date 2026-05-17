@@ -47,7 +47,7 @@ function mergeIntoCurrent(from: string, into: string) {
     execFileSync("git", ["checkout", "--ours", "package-lock.json"], {
       stdio: "inherit",
     });
-    execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
+    execFileSync("git", ["add", "package-lock.json"]);
     execFileSync("git", ["commit", "--no-edit"], { stdio: "inherit" });
   }
 }
