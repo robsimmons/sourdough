@@ -3,7 +3,7 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { rmSync } from "node:fs";
 
-const UPDATE_CHAIN: [string, string][] = [
+const UPDATE_CHAIN: [[string, string], ...[string,string][]] = [
   ["base", "express"],
   ["express", "fullstack"],
   ["fullstack", "fullstack-react"],
@@ -94,9 +94,9 @@ function main() {
   execFileSync("git", ["push", "origin"], { stdio: "inherit" });
 
   // Handle base Sourdough package
-  execFileSync("git", ["checkout", "base"], { stdio: "inherit" });
+  execFileSync("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
   regeneratePackageLock();
-  execFileSync("git", ["push", "origin", "base"], {
+  execFileSync("git", ["push", "origin", UPDATE_CHAIN[0][0]], {
     stdio: "inherit",
   });
 
