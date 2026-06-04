@@ -3,7 +3,7 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { rmSync } from "node:fs";
 
-const UPDATE_CHAIN: [[string, string], ...[string,string][]] = [
+const UPDATE_CHAIN: [[string, string], ...[string, string][]] = [
   ["base", "express"],
   ["express", "fullstack"],
   ["fullstack", "fullstack-react"],
