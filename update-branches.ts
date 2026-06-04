@@ -58,7 +58,7 @@ function regeneratePackageLock() {
   rmSync("node_modules", { recursive: true, force: true });
 
   // --min-release-age provides some protection against supply chain attacks
-  execFileSync("npm", ["install", "--min-release-age=7"], { stdio: "inherit" });
+  execFileSync("npm", ["install", "--min-release-age=5"], { stdio: "inherit" });
   if (!isPorcelain()) {
     console.log("** Something changed - if it's just package-lock.json changed, we can add");
     execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
