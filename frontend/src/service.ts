@@ -1,3 +1,14 @@
+import {
+  type AddGradeRequest,
+  type AddStudentRequest,
+  type AddStudentResponse,
+  type GetTranscriptRequest,
+  type GetTranscriptResponse,
+  zAddGradeResponse,
+  zAddStudentResponse,
+  zError,
+  zGetTranscriptResponse,
+} from "@sourdough/shared";
 import { z } from "zod";
 
 export class ServiceError extends Error {}
@@ -11,8 +22,6 @@ export function serviceErrorToStr(err: unknown) {
   return `Unexpected error: ${err instanceof Error ? err.message : String(err)}`;
 }
 
-const zError = z.object({ error: z.string() });
-
 const zGrade = z
   .string()
   .regex(z.regexes.number)
@@ -25,7 +34,6 @@ const zStudentID = z
   .transform((str) => Number.parseInt(str, 10))
   .pipe(z.int());
 
-const zAddStudentResponse = z.object({ studentID: z.int() });
 /**
  * Validate inputs and call the `addStudent` api
  *
@@ -37,26 +45,20 @@ const zAddStudentResponse = z.object({ studentID: z.int() });
 export async function addStudent(
   password: string,
   studentName: string,
-): Promise<z.infer<typeof zAddStudentResponse>> {
+): Promise<AddStudentResponse> {
   if (studentName === "") throw new ServiceError("Student name must be non-empty");
 
+  const body: AddStudentRequest = { password, studentName };
   const response = await fetch("/api/addStudent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      password,
-      studentName,
-    }),
+    body: JSON.stringify(body),
   });
   const data = z.union([zError, zAddStudentResponse]).parse(await response.json());
   if ("error" in data) throw new ServiceError(data.error);
   return data;
 }
 
-const zAddGradeResponse = z.discriminatedUnion("success", [
-  z.object({ success: z.literal(true) }),
-  z.object({ success: z.literal(false) }),
-]);
 /**
  * Validate inputs and call the `addGrade` api
  *
@@ -87,38 +89,21 @@ export async function addGrade(
     throw new ServiceError("Course name is required");
   }
 
+  const body: AddGradeRequest = {
+    password,
+    studentID: studentID.data,
+    courseName,
+    courseGrade: courseGrade.data,
+  };
   const response = await fetch("/api/addGrade", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      password,
-      studentID: studentID.data,
-      courseName,
-      courseGrade: courseGrade.data,
-    }),
+    body: JSON.stringify(body),
   });
   const data = z.union([zError, zAddGradeResponse]).parse(await response.json());
   if ("error" in data) throw new ServiceError(data.error);
   if (!data.success) throw new ServiceError(`Failed to add grade for this student`);
 }
-
-/**
- * This inferred Transcript type must be identical to the Transcript type
- * in src/types.ts
- */
-export const zTranscript = z.object({
-  student: z.object({ studentID: z.int(), studentName: z.string() }),
-  grades: z.array(z.object({ course: z.string(), grade: z.number() })),
-});
-export type Transcript = z.infer<typeof zTranscript>;
-
-const zGetTranscriptResponse = z.discriminatedUnion("success", [
-  z.object({ success: z.literal(false) }),
-  z.object({
-    success: z.literal(true),
-    transcript: zTranscript,
-  }),
-]);
 
 /**
  * Validate inputs and call the `getTranscript` API
@@ -131,19 +116,17 @@ const zGetTranscriptResponse = z.discriminatedUnion("success", [
 export async function getTranscript(
   password: string,
   studentIDStr: string,
-): Promise<z.infer<typeof zGetTranscriptResponse>> {
+): Promise<GetTranscriptResponse> {
   const studentID = zStudentID.safeParse(studentIDStr);
   if (!studentID.success) {
     throw new ServiceError("Student ID is invalid");
   }
 
+  const body: GetTranscriptRequest = { password, studentID: studentID.data };
   const response = await fetch("/api/getTranscript", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      password,
-      studentID: studentID.data,
-    }),
+    body: JSON.stringify(body),
   });
   const data = z.union([zError, zGetTranscriptResponse]).parse(await response.json());
   if ("error" in data) throw new ServiceError(data.error);

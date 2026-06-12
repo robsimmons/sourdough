@@ -18,7 +18,5 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true
-  },
-  "include": ["./**/*.ts"],
-  "exclude": ["./node_modules", "./client", "./frontend"]
+  }
 }
