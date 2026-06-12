@@ -1,6 +1,6 @@
 import eslint from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
-import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginImport from "eslint-plugin-import-x";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import reactHooks from "eslint-plugin-react-hooks";
 import { reactRefresh } from "eslint-plugin-react-refresh";
@@ -29,17 +29,17 @@ export default defineConfig([
       ecmaVersion: "latest",
     },
     settings: {
-      "import/resolver": { typescript: true },
+      "import-x/resolver": { typescript: true },
     },
     plugins: {
       "simple-import-sort": simpleImportSort,
     },
     rules: {
       eqeqeq: "error",
-      "import/no-amd": "error",
-      "import/no-commonjs": "error",
-      "import/no-empty-named-blocks": "error",
-      "import/no-extraneous-dependencies": [
+      "import-x/no-amd": "error",
+      "import-x/no-commonjs": "error",
+      "import-x/no-empty-named-blocks": "error",
+      "import-x/no-extraneous-dependencies": [
         "error",
         {
           // devDependencies can be imported in config and test files
@@ -51,9 +51,9 @@ export default defineConfig([
           includeInternal: true,
         },
       ],
-      "import/no-import-module-exports": "error",
-      "import/no-named-as-default": "error",
-      "import/no-named-as-default-member": "off", // warn -> off (produces some false positives)
+      "import-x/no-import-module-exports": "error",
+      "import-x/no-named-as-default": "error",
+      "import-x/no-named-as-default-member": "off", // warn -> off (produces some false positives)
       "no-console": "warn",
       "no-param-reassign": "error",
       "no-throw-literal": "error",
