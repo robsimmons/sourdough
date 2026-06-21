@@ -1,7 +1,6 @@
 {
   "name": "sourdough",
   "version": "1.0.0",
-  "description": "Sourdough Starter Code",
   "type": "module",
   "scripts": {
     "check": "tsc",
@@ -11,7 +10,6 @@
     "prettier:fix": "prettier --write .",
     "test": "vitest run --coverage"
   },
-  "author": "Rob Simmons",
   "devDependencies": {
     "@eslint/js": "^10.0.0",
     "@types/node": "^25.0.0",
