@@ -103,7 +103,8 @@ Notable exceptions to this principle:
   file or `eslint.config.mjs` file by adding a bit of cruft to the base
   configuration, that's a reasonable trade. Things are going to inevitably get
   copy-pasted, and so the fewer copies of configuration files there are, the
-  better.
+  better. Necessary changes should be minimal, clean diffs, for example when
+  server code can rely on node's definitions and shared code cannot.
 
   This is why the `.vscode/settings.json` applies Prettier to html and css
   files even though that's not relevant to the base project, and why
