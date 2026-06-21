@@ -8,6 +8,7 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
     "jsx": "react-jsx",
+    "moduleDetection": "force",
     "noEmit": true,
 
     /* Consistency with Node type stripping style */
