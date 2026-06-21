@@ -20,7 +20,10 @@ first place: it's common practice to keep frontend and backend code separate
 and to define a separate project that acts as a "single source of truth" for
 the API's types and that is subsequently imported by both frontend and
 backend. Zod validators and shared types are one of the most common things
-that a project might share between the frontend and the backend.
+that a project might share between the frontend and the backend. TypeScript in
+the frontend can access the Web APIs, TypeScript on the server can access node
+functionality, but shared TypeScript can't assume access to either; the
+`tsconfig.json` files reflect this.
 
 The way this project runs in "production mode" versus "development mode" is
 very different.
