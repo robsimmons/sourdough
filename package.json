@@ -1,7 +1,6 @@
 {
   "name": "sourdough",
   "version": "1.0.0",
-  "description": "Sourdough Starter Code",
   "type": "module",
   "scripts": {
     "check": "tsc",
@@ -14,7 +13,6 @@
     "build": "echo 'nothing to do to build, run `npm start`'",
     "start": "NODE_ENV=production node ./src/server.ts"
   },
-  "author": "Rob Simmons",
   "devDependencies": {
     "@eslint/js": "^10.0.0",
     "@types/express": "^5.0.6",
