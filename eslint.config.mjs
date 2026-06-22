@@ -141,7 +141,7 @@ export default defineConfig([
   },
   {
     files: ["{client,frontend}/**/*.{ts,tsx}"],
-    extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.recommended],
+    extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
   },
   {
     // Test files may need to make use of the `any` type in a way we want to
