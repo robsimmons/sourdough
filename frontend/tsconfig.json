@@ -21,6 +21,5 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true
-  },
-  "include": ["."]
+  }
 }
