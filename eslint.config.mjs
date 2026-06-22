@@ -36,6 +36,7 @@ export default defineConfig([
     },
     rules: {
       eqeqeq: "error",
+      "import-x/extensions": ["error", "ignorePackages"],
       "import-x/no-amd": "error",
       "import-x/no-commonjs": "error",
       "import-x/no-empty-named-blocks": "error",
