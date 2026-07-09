@@ -106,6 +106,7 @@ function main() {
 
   // Handle base Sourdough package
   execWithLog("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
+  execWithLog("git", ["pull", "--ff-only"], { stdio: "inherit" });
   regeneratePackageLock();
   execWithLog("git", ["push", "origin", UPDATE_CHAIN[0][0]], {
     stdio: "inherit",
