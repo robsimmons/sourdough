@@ -11,17 +11,28 @@ const UPDATE_CHAIN: [[string, string], ...[string, string][]] = [
   ["fullstack-react", "main"], // nb: package-lock regeneration could result in these two diverging
 ];
 
+function execWithLog(
+  file: string,
+  args: readonly string[],
+  options: undefined | { stdio?: "inherit"; encoding?: "utf8" },
+) {
+  if (process.env["VERBOSE"]) {
+    console.log(`% ${file} ${args.map((arg) => JSON.stringify(arg)).join(" ")}`);
+  }
+  return String(execFileSync(file, args, options));
+}
+
 function die(message: string) {
   console.error(`\n✗ ${message}`);
   process.exit(1);
 }
 
 function isPorcelain() {
-  return "" === execFileSync("git", ["status", "--porcelain"], { encoding: "utf8" }).trim();
+  return "" === execWithLog("git", ["status", "--porcelain"], { encoding: "utf8" }).trim();
 }
 
 function exactlyPackageJsonConflicts(): boolean {
-  const conflicts = execFileSync("git", ["diff", "--name-only", "--diff-filter=U"], {
+  const conflicts = execWithLog("git", ["diff", "--name-only", "--diff-filter=U"], {
     encoding: "utf8",
   })
     .split("\n")
@@ -44,11 +55,11 @@ function mergeIntoCurrent(from: string, into: string) {
     }
 
     // Resolve lockfile conflict with our version
-    execFileSync("git", ["checkout", "--ours", "package-lock.json"], {
+    execWithLog("git", ["checkout", "--ours", "package-lock.json"], {
       stdio: "inherit",
     });
-    execFileSync("git", ["add", "package-lock.json"]);
-    execFileSync("git", ["commit", "--no-edit"], { stdio: "inherit" });
+    execWithLog("git", ["add", "package-lock.json"]);
+    execWithLog("git", ["commit", "--no-edit"], { stdio: "inherit" });
   }
 }
 
@@ -58,11 +69,11 @@ function regeneratePackageLock() {
   rmSync("node_modules", { recursive: true, force: true });
 
   // --min-release-age provides some protection against supply chain attacks
-  execFileSync("npm", ["install", "--min-release-age=5"], { stdio: "inherit" });
+  execWithLog("npm", ["install", "--min-release-age=5"], { stdio: "inherit" });
   if (!isPorcelain()) {
     console.log("** Something changed - if it's just package-lock.json changed, we can add");
-    execFileSync("git", ["add", "package-lock.json"], { stdio: "inherit" });
-    execFileSync("git", ["commit", "-m", "Regenerate package-lock.json"], {
+    execWithLog("git", ["add", "package-lock.json"], { stdio: "inherit" });
+    execWithLog("git", ["commit", "-m", "Regenerate package-lock.json"], {
       stdio: "inherit",
     });
     if (!isPorcelain()) {
@@ -72,12 +83,12 @@ function regeneratePackageLock() {
     console.log("** Nothing's changed after regenerating package-lock.json, continue");
   }
 
-  execFileSync("npm", ["run", "check"], { stdio: "inherit" });
-  execFileSync("npm", ["run", "lint"], { stdio: "inherit" });
+  execWithLog("npm", ["run", "check"], { stdio: "inherit" });
+  execWithLog("npm", ["run", "lint"], { stdio: "inherit" });
 
   // Run npm outdated just to have the output go in terminal
   try {
-    execFileSync("npm", ["outdated"], { stdio: "inherit" });
+    execWithLog("npm", ["outdated"], { stdio: "inherit" });
   } catch {
     /* non-semver out-of-date stuff will lead to an error exit */
   }
@@ -89,27 +100,27 @@ function main() {
   }
 
   // Handle this orphan branch
-  execFileSync("git", ["pull", "--ff-only"], { stdio: "inherit" });
+  execWithLog("git", ["pull", "--ff-only"], { stdio: "inherit" });
   regeneratePackageLock();
-  execFileSync("git", ["push", "origin"], { stdio: "inherit" });
+  execWithLog("git", ["push", "origin"], { stdio: "inherit" });
 
   // Handle base Sourdough package
-  execFileSync("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
+  execWithLog("git", ["checkout", UPDATE_CHAIN[0][0]], { stdio: "inherit" });
   regeneratePackageLock();
-  execFileSync("git", ["push", "origin", UPDATE_CHAIN[0][0]], {
+  execWithLog("git", ["push", "origin", UPDATE_CHAIN[0][0]], {
     stdio: "inherit",
   });
 
   // Handle primary Sourdough branches
   for (const [last, next] of UPDATE_CHAIN) {
-    execFileSync("git", ["checkout", next], { stdio: "inherit" });
-    execFileSync("git", ["pull", "--ff-only"], { stdio: "inherit" });
+    execWithLog("git", ["checkout", next], { stdio: "inherit" });
+    execWithLog("git", ["pull", "--ff-only"], { stdio: "inherit" });
     mergeIntoCurrent(last, next);
     regeneratePackageLock();
-    execFileSync("git", ["push", "origin", next], { stdio: "inherit" });
+    execWithLog("git", ["push", "origin", next], { stdio: "inherit" });
   }
 
   console.log("Complete");
-  execFileSync("git", ["checkout", "scripts"], { stdio: "inherit" });
+  execWithLog("git", ["checkout", "scripts"], { stdio: "inherit" });
 }
 main();
