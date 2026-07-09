@@ -14,7 +14,7 @@ const UPDATE_CHAIN: [[string, string], ...[string, string][]] = [
 function execWithLog(
   file: string,
   args: readonly string[],
-  options: undefined | { stdio?: "inherit"; encoding?: "utf8" },
+  options?: { stdio?: "inherit"; encoding?: "utf8" },
 ) {
   if (process.env["VERBOSE"]) {
     console.log(`% ${file} ${args.map((arg) => JSON.stringify(arg)).join(" ")}`);
