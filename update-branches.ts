@@ -2,6 +2,7 @@
 
 import { execFileSync, spawnSync } from "node:child_process";
 import { rmSync } from "node:fs";
+import { z } from "zod";
 
 const UPDATE_CHAIN: [[string, string], ...[string, string][]] = [
   ["base", "express"],
@@ -94,6 +95,24 @@ function regeneratePackageLock() {
   }
 }
 
+async function assertNpmIsLatestLts() {
+  // Depends on https://nodejs.org/dist/index.json listing releases newest-first
+  const nodeReleases = z
+    .array(z.object({ version: z.string(), lts: z.union([z.string(), z.literal(false)]) }))
+    .parse(await (await fetch("https://nodejs.org/dist/index.json")).json());
+  const latestNodeLts = nodeReleases.find((release) => release.lts !== false)!;
+
+  // This script repeatedly invokes npm, not node, so grab the node release
+  // that npm on our path comes from instead of `node --version`.
+  const localNodeVersion = z
+    .object({ node: z.string() })
+    .parse(JSON.parse(execWithLog("npm", ["version", "--json"]))).node;
+
+  if (latestNodeLts.version !== "v" + localNodeVersion) {
+    die(`node on PATH is v${localNodeVersion}, use latest LTS (${latestNodeLts.version})`);
+  }
+}
+
 function main() {
   if (!isPorcelain()) {
     die("working tree not clean");
@@ -124,4 +143,6 @@ function main() {
   console.log("Complete");
   execWithLog("git", ["checkout", "scripts"], { stdio: "inherit" });
 }
+
+await assertNpmIsLatestLts();
 main();
