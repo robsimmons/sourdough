@@ -1,7 +1,8 @@
 // usage: node update-branches.ts
 
 import { execFileSync, spawnSync } from "node:child_process";
-import { rmSync } from "node:fs";
+import { renameSync, rmSync } from "node:fs";
+
 import { z } from "zod";
 
 const UPDATE_CHAIN: [[string, string], ...[string, string][]] = [
@@ -67,7 +68,8 @@ function mergeIntoCurrent(from: string, into: string) {
 function regeneratePackageLock() {
   console.log("Regenerating package-lock.json via npm install");
   rmSync("package-lock.json", { force: true });
-  rmSync("node_modules", { recursive: true, force: true });
+  renameSync("node_modules", "node_modules_tmp")
+  rmSync("node_modules_tmp", { recursive: true, force: true });
 
   // --min-release-age provides some protection against supply chain attacks
   execWithLog("npm", ["install", "--min-release-age=5"], { stdio: "inherit" });
