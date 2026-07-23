@@ -107,7 +107,6 @@ export default defineConfig([
         {
           // No limits on things like 'Content-Type' in a fetch object
           selector: "objectLiteralProperty",
-          modifiers: ["requiresQuotes"],
           format: null,
         },
         {
