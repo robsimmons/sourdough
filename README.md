@@ -4,10 +4,59 @@ This template project is part of Sourdough, a set of JavaScript templates that
 were originally developed at Northeastern for their Software Engineering class
 in spring of 2026.
 
-## Express Configuration
+## Vite+Express Full-stack Application
 
-The functional content of this project is a minimal Express transcript API for
-a very simple transcript server.
+This project has two parts:
+
+1.  A minimal Express transcript API for a very simple transcript server
+2.  A Vite frontend with code that calls that server (this lives in the
+    `./frontend` directory)
+
+The way this project runs in "production mode" versus "development mode" is
+very different.
+
+### Production Mode
+
+Production mode is simpler: there's one server running, the Express server, on
+port 3000, accessible via the url <http://localhost:3000>. When a GET request
+doesn't match any existing API endpoints, the Express server looks in
+`./frontend/dist` to see if there's a file it can serve from that directory.
+Files are put in that directory when `npm run build` calls the `vite build`
+command.
+
+The `vite build` step is necessary because we're writing our frontend code in
+TypeScript, but browsers can't do type stripping like Node can — we have to do
+some transformation on the code we're writing to make it browser-friendly.
+(Vite is doing a bunch of other transformations for other reasons as well.)
+
+### Development Mode
+
+Development mode is a little trickier to explain. When developing, we want our
+browser to be connecting to Vite's "development web server", not to Express,
+because Vite does a lot of nifty stuff to make sure that when we change our
+TypeScript code, it **reloads the web page**. That is _very_ handy for
+frontend web development.
+
+However, this means your "frontend code" — the HTML and JS that the browser is
+supposed to run being served by the Vite development web server — is coming
+from a different server than the Express server that's handling API requests.
+The default convention is that Vite development web server is accessed via
+<http://localhost:5173>, and the Express API server is accessible via
+<http://localhost:3000>. If you try to have a website that is being served
+from a different website than the API service it is using, you're going to
+have to gain a nightmarish amount of literacy with
+[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS). (A
+different port on `localhost` counts as a different website.) This wasn't a
+problem in production mode: your entire website is coming from the Express
+server. You really want your website to look like it's _all_ coming from a
+single server during development too.
+
+The easy way to do this is to have the development server _only_ respond to
+API requests, and have the Vite development server forward all API requests to
+the Express server. This is called "proxying", and it means that you can
+access a complete Vite server from <http://localhost:5173>. (The Vite
+development server needs to know what an API request is: it's configured to
+treat every route starting with `/api` as an API endpoint.)
 
 ### Express API
 
@@ -61,7 +110,11 @@ appropriate:
   `--fix` option
 - `npm run prettier` checks formatting, and `npm run prettier:fix` writes
   formatted files back to disk
-- `npm run test` runs Vitest tests and reports coverage
+- `npm run test` runs Vitest tests on the backend (and reports coverage) and
+  runs Playwright end-to-end tests to exercise the frontend and backend
+  together
+- `npm run playwright` runs the Playwright end-to-end tests with the
+  interactive Playwright UI
 - `npm run dev` starts a development server or watch process
 - `npm run build` prepares the project for production-style deployment
 - `npm start` runs the project in production mode
