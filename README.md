@@ -4,13 +4,13 @@ This template project is part of Sourdough, a set of JavaScript templates that
 were originally developed at Northeastern for their Software Engineering class
 in spring of 2026.
 
-## Vite+Express Full-stack Application
+## Vite+Express Full-stack React Application
 
 This project has two parts:
 
 1.  A minimal Express transcript API for a very simple transcript server
-2.  A Vite frontend with code that calls that server (this lives in the
-    `./frontend` directory)
+2.  A Vite frontend for a simple React application that uses the API server
+    (this lives in the `./frontend` directory)
 
 The way this project runs in "production mode" versus "development mode" is
 very different.
