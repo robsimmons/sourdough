@@ -1,25 +1,12 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    /* Basic configuration */
     "target": "ES2023",
     "lib": ["ES2023", "DOM"],
     "module": "ES2022",
     "moduleResolution": "bundler",
     "types": ["vite/client"],
-    "skipLibCheck": true,
     "jsx": "react-jsx",
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Consistency with Node type stripping style */
-    "allowImportingTsExtensions": true,
-    "erasableSyntaxOnly": true,
-    "verbatimModuleSyntax": true,
-
-    /* Linting */
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUncheckedIndexedAccess": true
+    "moduleDetection": "force"
   }
 }

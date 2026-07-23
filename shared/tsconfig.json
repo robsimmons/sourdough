@@ -1,0 +1,8 @@
+/* Visit https://www.typescriptlang.org/tsconfig/ to learn about this file */
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2024"],
+    "module": "nodenext"
+  }
+}

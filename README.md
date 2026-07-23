@@ -4,13 +4,26 @@ This template project is part of Sourdough, a set of JavaScript templates that
 were originally developed at Northeastern for their Software Engineering class
 in spring of 2026.
 
-## Vite+Express Full-stack React Application
+## Vite+Express Full-stack React Application with Workspaces
 
-This project has two parts:
+This project has three parts, which together form an
+[npm workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces) project.
 
-1.  A minimal Express transcript API for a very simple transcript server
+1.  A minimal Express transcript API for a very simple transcript server (in
+    the `./server` directory)
 2.  A Vite frontend for a simple React application that uses the API server
     (this lives in the `./frontend` directory)
+3.  Shared Zod validation and type definitions (in the `./shared` directory)
+
+The shared Zod validation is why the move to workspaces is desirable in the
+first place: it's common practice to keep frontend and backend code separate
+and to define a separate project that acts as a "single source of truth" for
+the API's types and that is subsequently imported by both frontend and
+backend. Zod validators and shared types are one of the most common things
+that a project might share between the frontend and the backend. TypeScript in
+the frontend can access the Web APIs, TypeScript on the server can access node
+functionality, but shared TypeScript can't assume access to either; the
+`tsconfig.json` files reflect this.
 
 The way this project runs in "production mode" versus "development mode" is
 very different.
@@ -110,9 +123,10 @@ appropriate:
   `--fix` option
 - `npm run prettier` checks formatting, and `npm run prettier:fix` writes
   formatted files back to disk
-- `npm run test` runs Vitest tests on the backend (and reports coverage) and
-  runs Playwright end-to-end tests to exercise the frontend and backend
-  together
+- `npm run test` runs appropriate tests on all projects: vitest without
+  coverage for the shared project (it's mostly validators and types anyway),
+  vitest with coverage for the API server, and Playwright end-to-end tests in
+  the frontend project that exercise the frontend and backend together
 - `npm run playwright` runs the Playwright end-to-end tests with the
   interactive Playwright UI
 - `npm run dev` starts a development server or watch process
