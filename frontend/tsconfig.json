@@ -6,6 +6,7 @@
     "module": "ES2022",
     "moduleResolution": "bundler",
     "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "moduleDetection": "force",
