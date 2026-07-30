@@ -68,7 +68,7 @@ function mergeIntoCurrent(from: string, into: string) {
 function regeneratePackageLock() {
   console.log("Regenerating package-lock.json via npm install");
   rmSync("package-lock.json", { force: true });
-  renameSync("node_modules", "node_modules_tmp")
+  renameSync("node_modules", "node_modules_tmp");
   rmSync("node_modules_tmp", { recursive: true, force: true });
 
   // --min-release-age provides some protection against supply chain attacks
