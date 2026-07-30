@@ -129,7 +129,7 @@ This base project has an opinionated ESLint configuration that relies on
 [typed linting](https://typescript-eslint.io/getting-started/typed-linting).
 The ESLint configuration makes some assumptions about project structure:
 
-- Frontend code is code that lives in `./frontend` or `./client`, and
+- Frontend code is code that lives in either `./frontend` or `./client`, and
   optionally uses React and JSX. This code is subject to different linter
   rules.
 - Test code lives in a `**/tests` directory OR has a `*.spec.ts(x)` or a
