@@ -122,6 +122,11 @@ function main() {
 
   // Handle this orphan branch
   execWithLog("git", ["pull", "--ff-only"], { stdio: "inherit" });
+  execWithLog("git", ["checkout", "base", "--", "eslint.config.mjs"]);
+  if (!isPorcelain()) {
+    console.log("** re-sync eslint.config.mjs with base");
+    execWithLog("git", ["commit", "-m", "Sync eslint.config.mjs from base"], { stdio: "inherit" });
+  }
   regeneratePackageLock();
   execWithLog("git", ["push", "origin"], { stdio: "inherit" });
 
