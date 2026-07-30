@@ -30,8 +30,10 @@ version of Node (this is v24 as of mid-2026).
 Notable exceptions to this principle:
 
 - `.gitignore` takes a kitchen-sink approach and should freely accept
-  additions. (For example, if a student accidentally checks in a file that
-  could have been ignored, it makes sense to add that file here.)
+  additions. (For example, if there's some use case that results in someone
+  accidentally checking in a file that could have been ignored, it makes sense
+  to add that file here. `.stryker-tmp` is ignored in `.gitignore` and in
+  `eslint.config.mjs` for this reason.)
 
 - The ESLint configuration is a maximalist attempt at keeping new TypeScript
   programmers on the rails in a complicated codebase, and also giving them a
