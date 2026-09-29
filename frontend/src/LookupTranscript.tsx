@@ -1,7 +1,8 @@
+import type { Transcript } from "@repo/shared";
 import { useState } from "react";
 
 import { usePasswordContext } from "./PasswordContext.ts";
-import { getTranscript, serviceErrorToStr, type Transcript } from "./service.ts";
+import { getTranscript, serviceErrorToStr } from "./service.ts";
 
 export default function LookupTranscript() {
   const [feedback, setFeedback] = useState<
