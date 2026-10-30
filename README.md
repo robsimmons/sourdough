@@ -4,12 +4,22 @@ This template project is part of Sourdough, a set of JavaScript templates that
 were originally developed at Northeastern for their Software Engineering class
 in spring of 2026.
 
-## Base configuration
+## Express Configuration
 
-The functional content of this project is a minimal "transcript service" that
-registers students by assigning them an ID and then lets course grades be
-added and queried. Everything in the `./src` directory can be deleted to
-create a true empty project.
+The functional content of this project is a minimal Express transcript API for
+a very simple transcript server.
+
+### Express API
+
+The Express server's API has the following endpoints:
+
+| Endpoint             | Method | Description                         |
+| -------------------- | ------ | ----------------------------------- |
+| `/api/addStudent`    | POST   | Add a new student                   |
+| `/api/addGrade`      | POST   | Add a grade for an existing student |
+| `/api/getTranscript` | POST   | Look up information for a student   |
+
+## Base configuration
 
 The base project configuration follows a philosophy of "minimalism, mostly."
 Project configuration should be minimal and have a bias towards implicit
