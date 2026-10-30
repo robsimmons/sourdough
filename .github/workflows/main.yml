@@ -29,11 +29,8 @@ jobs:
       - name: Linting
         run: npm run lint
 
-      - name: Run server tests
-        run: npm run test:server
-
       - name: Install Playwright dependencies
         run: npx playwright install --with-deps chromium
 
-      - name: Run Playwright end-to-end tests
-        run: npm run test:frontend
+      - name: Run tests
+        run: npm run test
