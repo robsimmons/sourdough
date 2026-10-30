@@ -1,7 +1,7 @@
 // usage: node update-branches.ts
 
 import { execFileSync, spawnSync } from "node:child_process";
-import { renameSync, rmSync } from "node:fs";
+import { globSync, renameSync, rmSync } from "node:fs";
 
 import { z } from "zod";
 
@@ -68,8 +68,10 @@ function mergeIntoCurrent(from: string, into: string) {
 function regeneratePackageLock() {
   console.log("Regenerating package-lock.json via npm install");
   rmSync("package-lock.json", { force: true });
-  renameSync("node_modules", "node_modules_tmp");
-  rmSync("node_modules_tmp", { recursive: true, force: true });
+  for (const dir of globSync(["node_modules", "*/node_modules"])) {
+    renameSync(dir, `${dir}_tmp`)
+    rmSync(`${dir}_tmp`, { recursive: true, force: true })
+  }
 
   // --min-release-age provides some protection against supply chain attacks
   execWithLog("npm", ["install", "--min-release-age=5"], { stdio: "inherit" });
