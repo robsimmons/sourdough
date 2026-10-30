@@ -1,0 +1,11 @@
+section {
+  border-top: 1px black solid;
+  margin-top: 1em;
+}
+
+.feedback {
+  color: darkcyan;
+  margin-left: 2em;
+  font-family: monospace;
+  margin-top: 1em;
+}

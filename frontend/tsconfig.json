@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Basic configuration */
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "types": ["vite/client"],
+    "allowArbitraryExtensions": true,
+    "skipLibCheck": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Consistency with Node type stripping style */
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+
+    /* Linting */
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true
+  }
+}
