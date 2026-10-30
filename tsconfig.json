@@ -2,7 +2,7 @@
 {
   "compilerOptions": {
     /* Basic configuration */
-    "lib": ["ES2024"],
+    "lib": ["ES2025"],
     "module": "nodenext",
     "skipLibCheck": true,
     "noEmit": true,
